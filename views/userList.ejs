@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de Usuários</h1>
+        <a href="/users/register" class="btn btn-primary mb-3">Adicionar</a>
+        <ul class="list-group mt-3">
+            <% userList.forEach(user => { %>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col"><strong>ID:</strong></div>
+                        <div class="col"><strong>Nome:</strong></div>
+                        <div class="col"><strong>Email:</strong></div>
+                        <div class="col"><strong>Data de Nascimento:</strong></div>
+                        <div class="col"><strong>Sexo:</strong></div>
+                        <div class="col"><strong></strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><%= user.id %></div>
+                        <div class="col"><%= user.name %></div>
+                        <div class="col"><%= user.email %></div>
+                        <div class="col"><%= user.dob %></div>
+                        <div class="col"><%= user.gender %></div>
+                        <div class="col">
+                            <a href="#" class="btn btn-primary btn-sm">Atualizar</a>
+                            <a href="/users/delete/<%= user.id %>" class="btn btn-danger btn-sm">Excluir</a>
+                        </div>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</body>
+</html>
