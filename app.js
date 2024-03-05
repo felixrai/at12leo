@@ -19,8 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Lista de usuários (simulando um banco de dados)
 let userList = [
   { id: 1, name: 'Usuário 1', email: 'usuario1@example.com', dob: '1990-01-01', gender: 'Masculino' },
-  { id: 2, name: 'Usuário 2', email: 'usuario2@example.com', dob: '1995-05-15', gender: 'Feminino' },
-  { id: 3, name: 'Usuário 3', email: 'usuario3@example.com', dob: '1985-10-10', gender: 'Outro' }
+  { id: 2, name: 'Usuário 2', email: 'usuario2@example.com', dob: '1995-05-15', gender: 'Feminino' }
+ 
 ];
 
 // Rota de listagem de usuários
@@ -42,7 +42,7 @@ app.get('/users/register', (req, res) => {
 
 // Rota para adicionar um novo usuário
 app.post('/users/add', (req, res) => {
-  const { name, email, cpf, monthlyIncome, address, number, city } = req.body;
+  const { name, email, cpf, dob, gender, monthlyIncome, address, number, city } = req.body;
 
   let errors = [];
 
@@ -69,11 +69,30 @@ app.post('/users/add', (req, res) => {
   if (!city || city.length < 3) {
       errors.push('Cidade deve ter no mínimo 3 caracteres');
   }
+//////
 
-  if (errors.length > 0) {
-    res.status(400).json({ errors });
+if (errors.length > 0) {
+  res.status(400).json({ errors });
 } else {
-    res.render('success'); // Renderiza a página de sucesso
+  // Se não houver erros, criar um novo usuário
+  const newUser = {
+    id: userList.length + 1,
+    name,
+    email,
+    cpf,
+    dob,
+    gender, 
+    monthlyIncome,
+    address,
+    number,
+    city
+  };
+
+  // Adicionar o novo usuário à lista
+  userList.push(newUser);
+
+  // Redirecionar para a página de sucesso
+  res.render('success');
 }
 });
 
